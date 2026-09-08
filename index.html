@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>EA$Y FM | 7/24 YÜZDE YÜZ MÜZİK</title>
+    <title>EA$Y FM | 7/24 TRAP & OPIUM SOUND SYSTEM</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=Syne:wght@800;900&family=Montserrat:wght@400;700;900&family=Permanent+Marker&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
     
@@ -16,9 +16,11 @@
 
         :root {
             --accent-color: #ffffff;
-            --glow-color: rgba(255, 255, 255, 0.55);
-            --bg-glow: rgba(180, 220, 255, 0.1);
-            --border-glow: rgba(255, 255, 255, 0.35);
+            --glow-color: rgba(255, 255, 255, 0.65);
+            --bg-glow: rgba(180, 220, 255, 0.12);
+            --border-glow: rgba(255, 255, 255, 0.4);
+            --glitch-x: 0;
+            --glitch-y: 0;
         }
 
         html, body {
@@ -27,7 +29,7 @@
             width: 100%;
             height: 100%;
             height: 100dvh;
-            background-color: #020202;
+            background-color: #000000;
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
             overflow: hidden !important;
@@ -42,34 +44,37 @@
             justify-content: center;
         }
 
+        /* CRT Vignette ve Karartma */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, #000000 130%);
+            background: radial-gradient(circle, transparent 15%, #000000 120%);
             z-index: 45;
             pointer-events: none;
         }
 
+        /* CRT Noise & Scanline Effect */
         body::after {
             content: " ";
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
             z-index: 50;
-            background-size: 100% 6px, 6px 100%;
+            background-size: 100% 4px, 6px 100%;
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.45;
         }
 
         .scanline-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.015) 50%, transparent 100%);
+            background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
             z-index: 46;
             pointer-events: none;
-            animation: scanlineAnim 12s linear infinite;
+            animation: scanlineAnim 8s linear infinite;
         }
 
         @keyframes scanlineAnim {
@@ -80,63 +85,47 @@
         .trap-bg-text {
             position: fixed;
             font-family: 'UnifrakturCook', cursive;
-            color: rgba(255, 255, 255, 0.04);
-            font-size: 22vw;
+            color: rgba(255, 255, 255, 0.035);
+            font-size: 24vw;
             z-index: 1;
             pointer-events: none;
             text-transform: uppercase;
             white-space: nowrap;
-            letter-spacing: -3px;
-            text-shadow: 0 0 35px var(--glow-color);
-            filter: blur(1px);
-            transition: color 0.3s ease;
+            letter-spacing: -4px;
+            text-shadow: 0 0 45px var(--glow-color);
+            filter: blur(1.5px);
+            transition: color 0.3s ease, transform 0.1s ease-out;
             will-change: transform;
         }
 
-        .trap-bg-text.top-left {
-            top: -6%;
-            left: -12%;
-            transform: rotate(-10deg);
-        }
-
-        .trap-bg-text.bottom-right {
-            bottom: -10%;
-            right: -12%;
-            transform: rotate(8deg);
-        }
+        .trap-bg-text.top-left { top: -8%; left: -15%; transform: rotate(-12deg); }
+        .trap-bg-text.bottom-right { bottom: -12%; right: -15%; transform: rotate(10deg); }
 
         .spray-tag {
             position: fixed;
             font-family: 'Permanent Marker', cursive;
             color: var(--accent-color);
-            opacity: 0.12;
-            font-size: 10vw;
+            opacity: 0.15;
+            font-size: 11vw;
             z-index: 1;
             pointer-events: none;
-            transition: color 0.4s ease, opacity 0.4s ease;
-            text-shadow: 0 0 20px var(--glow-color);
+            transition: color 0.4s ease, opacity 0.4s ease, transform 0.1s ease-out;
+            text-shadow: 0 0 25px var(--glow-color);
             will-change: transform;
         }
 
-        .spray-tag.tag1 { top: 35%; left: 2%; transform: rotate(-25deg); }
-        .spray-tag.tag2 { top: 15%; right: 3%; transform: rotate(15deg); }
+        .spray-tag.tag1 { top: 32%; left: 1%; transform: rotate(-22deg); }
+        .spray-tag.tag2 { top: 18%; right: 2%; transform: rotate(18deg); }
 
         #bg-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
         }
 
         #lightning-flash {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: var(--accent-color);
             z-index: 3;
             pointer-events: none;
@@ -147,26 +136,21 @@
 
         .ambient-glow {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 95vw;
-            height: 95vh;
-            background: radial-gradient(circle, var(--glow-color) 0%, var(--bg-glow) 50%, rgba(0, 0, 0, 0) 80%);
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle, var(--glow-color) 0%, var(--bg-glow) 45%, rgba(0, 0, 0, 0) 75%);
             z-index: 4;
             pointer-events: none;
-            transition: transform 0.08s ease-out, opacity 0.08s ease-out, background 0.4s ease;
+            transition: transform 0.05s ease-out, opacity 0.05s ease-out, background 0.4s ease;
             will-change: transform, opacity;
-            filter: blur(70px);
+            filter: blur(80px);
         }
 
-        /* Glitch Katmanı için Ekranı Kaplayan FX Div */
         #mobile-glitch-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 40;
-            pointer-events: none;
-            opacity: 0;
+            z-index: 40; pointer-events: none; opacity: 0;
             mix-blend-mode: exclusion;
             background: transparent;
             will-change: opacity, transform;
@@ -184,66 +168,62 @@
             align-items: center;
             justify-content: space-between;
             padding: calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom)) 14px;
-            gap: 12px;
+            gap: 10px;
             margin: 0 auto;
             box-sizing: border-box;
-            transition: transform 0.05s ease, filter 0.05s ease;
             will-change: transform, filter;
         }
 
         .wrapper-shake {
-            animation: trapBassShake 0.07s ease-in-out infinite alternate;
+            animation: trapBassShake 0.06s ease-in-out infinite alternate;
         }
 
-        /* Mobil ve PC uyumlu ultra belirgin Glitch Efekti */
         .wrapper-glitch {
-            filter: drop-shadow(-6px 0 0px rgba(255, 0, 50, 0.9)) drop-shadow(6px 0 0px rgba(0, 240, 255, 0.9)) !important;
-            -webkit-filter: drop-shadow(-6px 0 0px rgba(255, 0, 50, 0.9)) drop-shadow(6px 0 0px rgba(0, 240, 255, 0.9)) !important;
-            transform: translate(calc(var(--glitch-x, 0) * 1px), calc(var(--glitch-y, 0) * 1px)) scale(1.02) !important;
+            filter: drop-shadow(-8px 0 0px rgba(255, 0, 50, 0.95)) drop-shadow(8px 0 0px rgba(0, 240, 255, 0.95)) !important;
+            transform: translate(calc(var(--glitch-x) * 1px), calc(var(--glitch-y) * 1px)) scale(1.025) !important;
         }
 
         @keyframes trapBassShake {
             0% { transform: scale(1) translate(0, 0); }
-            50% { transform: scale(1.008) translate(-1.5px, 1.5px); }
-            100% { transform: scale(0.992) translate(1.5px, -1.5px); }
+            50% { transform: scale(1.01) translate(-2px, 2px); }
+            100% { transform: scale(0.99) translate(2px, -2px); }
         }
 
         .logo-container {
             text-align: center;
             position: relative;
             width: 100%;
-            max-width: 420px;
-            height: clamp(180px, 32vh, 300px);
+            max-width: 440px;
+            height: clamp(190px, 33vh, 320px);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: visible;
             margin: 0 auto;
             flex-shrink: 0;
+            cursor: grab;
+        }
+
+        .logo-container:active {
+            cursor: grabbing;
         }
 
         @media (min-width: 769px) {
             .logo-container {
-                max-width: 620px;
-                height: clamp(260px, 38vh, 380px);
+                max-width: 640px;
+                height: clamp(270px, 39vh, 400px);
             }
         }
 
         #globe-3d-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            z-index: 2;
-            overflow: visible;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%; height: 100%;
+            position: relative; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
         }
 
         #globe-3d-container canvas {
-            display: block;
-            outline: none;
-            filter: drop-shadow(0 0 40px var(--glow-color));
+            display: block; outline: none;
+            filter: drop-shadow(0 0 50px var(--glow-color));
         }
 
         .status-bar {
@@ -253,63 +233,47 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            max-width: 100%;
             flex-shrink: 0;
             padding: 0 4px;
         }
 
         .badge {
-            background: rgba(10, 10, 10, 0.85);
+            background: rgba(10, 10, 10, 0.88);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border-glow);
-            padding: 7px 12px;
+            padding: 8px 14px;
             border-radius: 40px;
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: 900;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            letter-spacing: 1.8px;
+            display: flex; align-items: center; gap: 7px;
             text-transform: uppercase;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), inset 0 0 12px rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.95), inset 0 0 12px rgba(255, 255, 255, 0.08);
             white-space: nowrap;
             transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
         .theme-selector {
-            display: flex;
-            gap: 6px;
-            background: rgba(10, 10, 10, 0.85);
+            display: flex; gap: 6px;
+            background: rgba(10, 10, 10, 0.88);
             border: 1px solid var(--border-glow);
-            padding: 6px 10px;
+            padding: 7px 12px;
             border-radius: 40px;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
-            transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.95);
         }
 
         .theme-btn {
-            width: 15px;
-            height: 15px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.8);
             cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
-            position: relative;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .theme-btn:active {
-            transform: scale(0.6);
-            animation: themeExplosion 0.35s ease-out;
-        }
-
-        @keyframes themeExplosion {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1.8); filter: brightness(3); }
-            100% { transform: scale(1); }
-        }
+        .theme-btn:active { transform: scale(0.6); }
 
         .theme-ice { background: #ffffff; box-shadow: 0 0 14px #fff; }
         .theme-slime { background: #39ff14; box-shadow: 0 0 14px #39ff14; }
@@ -318,108 +282,72 @@
         .theme-gold { background: #ffd700; box-shadow: 0 0 14px #ffd700; }
 
         .live-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px; height: 8px;
             background-color: var(--accent-color);
             border-radius: 50%;
             box-shadow: 0 0 14px var(--accent-color);
-            animation: pulse 0.8s infinite alternate;
+            animation: pulse 0.7s infinite alternate;
         }
 
         @keyframes pulse {
             0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.1; transform: scale(0.3); }
+            100% { opacity: 0.2; transform: scale(0.4); }
         }
 
         .volume-control-box {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(10, 10, 10, 0.85);
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(10, 10, 10, 0.88);
             border: 1px solid var(--border-glow);
-            padding: 6px 12px;
+            padding: 7px 14px;
             border-radius: 40px;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
-            transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.95);
             pointer-events: auto;
         }
 
         .badge-bass-pulse {
-            transform: scale(1.04);
+            transform: scale(1.06);
             border-color: var(--accent-color) !important;
-            box-shadow: 0 0 22px var(--glow-color) !important;
+            box-shadow: 0 0 25px var(--glow-color) !important;
         }
 
         .volume-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 11px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.1s ease;
+            background: none; border: none; color: #fff;
+            cursor: pointer; font-size: 12px; padding: 0;
+            display: flex; align-items: center; justify-content: center;
         }
-        
-        .volume-btn:active { transform: scale(0.8); }
 
         .volume-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 45px;
-            height: 3px;
-            border-radius: 2px;
-            background: rgba(255, 255, 255, 0.2);
-            outline: none;
-            cursor: pointer;
+            -webkit-appearance: none; appearance: none;
+            width: 50px; height: 3px; border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2); outline: none; cursor: pointer;
         }
 
         .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            box-shadow: 0 0 12px var(--accent-color);
-        }
-
-        @media (max-width: 480px) {
-            .status-bar { gap: 6px; }
-            .badge { padding: 5px 9px; font-size: 8px; letter-spacing: 1px; }
-            .theme-selector { padding: 5px 8px; gap: 4px; }
-            .theme-btn { width: 13px; height: 13px; }
-            .volume-control-box { padding: 5px 9px; }
-            .volume-slider { width: 38px; }
+            -webkit-appearance: none; appearance: none;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent-color); box-shadow: 0 0 12px var(--accent-color);
         }
 
         .video-container {
             position: relative;
-            width: 100%;
-            flex: 1 1 auto;
-            min-height: 140px;
-            max-height: 38vh;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.95);
+            width: 100%; flex: 1 1 auto;
+            min-height: 140px; max-height: 38vh;
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98);
             border: 1px solid var(--border-glow);
             transition: border-color 0.3s, box-shadow 0.3s, transform 0.08s ease;
-            background: #000;
-            margin: 2px 0;
+            background: #000; margin: 2px 0;
         }
 
         .video-container.playing-border {
             border-color: var(--accent-color);
-            box-shadow: 0 0 40px var(--glow-color), inset 0 0 25px var(--glow-color);
+            box-shadow: 0 0 45px var(--glow-color), inset 0 0 30px var(--glow-color);
         }
 
         #youtube-player {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             border: none; pointer-events: auto;
         }
 
@@ -428,46 +356,29 @@
         .yt-shield-bottom-edge { position: absolute; bottom: 0; right: 0; width: 2%; height: 18%; z-index: 15; background: transparent; }
 
         #start-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(10, 10, 10, 0.96) 0%, rgba(0, 0, 0, 0.99) 100%);
-            z-index: 30;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(10, 10, 10, 0.97) 0%, rgba(0, 0, 0, 0.99) 100%);
+            z-index: 30; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; cursor: pointer;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             transition: opacity 0.3s ease, visibility 0.3s;
         }
 
         .start-btn {
-            background: var(--accent-color);
-            color: #000;
-            font-family: 'Syne', sans-serif;
-            font-weight: 900;
-            font-size: 11px;
-            padding: 16px 42px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            letter-spacing: 3.5px;
-            box-shadow: 0 0 45px var(--accent-color);
+            background: var(--accent-color); color: #000;
+            font-family: 'Syne', sans-serif; font-weight: 900; font-size: 11px;
+            padding: 18px 46px; border: none; border-radius: 50px;
+            cursor: pointer; letter-spacing: 4px;
+            box-shadow: 0 0 50px var(--accent-color);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
+            text-transform: uppercase; position: relative; overflow: hidden;
         }
 
         .start-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
+            content: ''; position: absolute; top: -50%; left: -50%;
             width: 200%; height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: rotate(30deg);
-            animation: btnShine 3s infinite;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: rotate(30deg); animation: btnShine 2.5s infinite;
         }
 
         @keyframes btnShine {
@@ -476,90 +387,56 @@
         }
 
         .start-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 65px var(--accent-color);
+            transform: scale(1.08); box-shadow: 0 0 70px var(--accent-color);
         }
 
         .now-playing-card {
             width: 100%;
-            background: rgba(12, 12, 12, 0.88);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(12, 12, 12, 0.90);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            border-radius: 18px; padding: 14px 20px;
+            display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.95);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 4px;
+            flex-shrink: 0; position: relative; overflow: hidden; margin-bottom: 4px;
         }
 
         .track-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            overflow: hidden;
-            max-width: 58%;
+            display: flex; flex-direction: column; gap: 3px;
+            overflow: hidden; max-width: 58%;
         }
 
         .track-label {
-            font-size: 8px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #888;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 8px; font-weight: 900; letter-spacing: 2px;
+            color: #888; text-transform: uppercase;
+            display: flex; align-items: center; gap: 6px;
         }
 
         .track-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 14px;
-            font-weight: 900;
-            color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.5px;
+            font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 900;
+            color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6); letter-spacing: 0.5px;
         }
 
         .next-track {
-            font-size: 8.5px;
-            color: #aaa;
-            text-align: right;
-            max-width: 40%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
+            font-size: 8.5px; color: #aaa; text-align: right;
+            max-width: 40%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            display: flex; flex-direction: column; gap: 3px;
         }
 
         .wave-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 12px;
-            margin-left: 4px;
+            display: flex; align-items: flex-end; gap: 2.5px;
+            height: 14px; margin-left: 6px;
         }
 
         .wave-bar {
-            width: 2.5px;
-            background: var(--accent-color);
-            border-radius: 1px;
-            box-shadow: 0 0 8px var(--accent-color);
-            animation: waveAnim 0.5s ease-in-out infinite alternate;
+            width: 3px; background: var(--accent-color);
+            border-radius: 1px; box-shadow: 0 0 10px var(--accent-color);
+            animation: waveAnim 0.45s ease-in-out infinite alternate;
         }
 
         .wave-bar:nth-child(1) { height: 35%; animation-delay: 0.1s; }
-        .wave-bar:nth-child(2) { height: 90%; animation-delay: 0.3s; }
+        .wave-bar:nth-child(2) { height: 95%; animation-delay: 0.3s; }
         .wave-bar:nth-child(3) { height: 55%; animation-delay: 0.2s; }
         .wave-bar:nth-child(4) { height: 100%; animation-delay: 0.4s; }
 
@@ -589,17 +466,17 @@
     <div class="ambient-glow" id="ambient-glow"></div>
 
     <div class="main-wrapper" id="main-wrapper">
-        <div class="logo-container">
+        <div class="logo-container" id="logo-touch-area">
             <div id="globe-3d-container"></div>
         </div>
 
         <div class="status-bar">
             <div class="badge" id="badge-live">
                 <span class="live-dot"></span>
-                <span>CANLI</span>
+                <span>CANLI YAYIN</span>
             </div>
             <div class="badge" id="badge-listener">
-                <span>🎧 DİNLEYİCİ: <strong id="listener-count" style="color: #ffffff; text-shadow:0 0 10px #fff;">0</strong></span>
+                <span>🎧 DİNLEYİCİ: <strong id="listener-count" style="color: #ffffff; text-shadow:0 0 12px #fff;">0</strong></span>
             </div>
             <div class="theme-selector" id="theme-selector-box">
                 <div class="theme-btn theme-ice" onclick="setRadioTheme('ICE')" title="ICE White"></div>
@@ -620,7 +497,7 @@
             <div class="yt-shield-bottom-edge"></div>
 
             <div id="start-overlay">
-                <button class="start-btn" id="start-btn-el">CANLI YAYINA KATIL</button>
+                <button class="start-btn" id="start-btn-el">FREKANSA BAĞLAN</button>
             </div>
             <div id="youtube-player"></div>
         </div>
@@ -629,7 +506,7 @@
             <div class="track-info">
                 <span class="track-label">
                     <span style="display:inline-block; width:6px; height:6px; background:var(--accent-color); border-radius:50%; box-shadow:0 0 10px var(--accent-color);"></span>
-                    YAYINDA
+                    ŞU AN ÇALAN
                     <div class="wave-bars" id="wave-bars" style="opacity: 0;">
                         <div class="wave-bar"></div>
                         <div class="wave-bar"></div>
@@ -637,10 +514,10 @@
                         <div class="wave-bar"></div>
                     </div>
                 </span>
-                <span class="track-title" id="current-track-name">Canlı Yayın Bekleniyor...</span>
+                <span class="track-title" id="current-track-name">Canlı Yayın Bağlantısı Bekleniyor...</span>
             </div>
             <div class="next-track">
-                <div class="track-label" style="justify-content: flex-end;">SIRADAKİ</div>
+                <div class="track-label" style="justify-content: flex-end;">SIRADAKİ TRAP</div>
                 <span id="next-track-name" style="font-weight:700;">---</span>
             </div>
         </div>
@@ -649,11 +526,11 @@
     <script>
         let currentAccentColor = '#ffffff';
         const THEMES = {
-            ICE: { accent: '#ffffff', glow: 'rgba(255, 255, 255, 0.55)', bgGlow: 'rgba(180, 220, 255, 0.1)', borderGlow: 'rgba(255, 255, 255, 0.35)' },
-            SLIME: { accent: '#39ff14', glow: 'rgba(57, 255, 20, 0.6)', bgGlow: 'rgba(0, 255, 50, 0.12)', borderGlow: 'rgba(57, 255, 20, 0.4)' },
-            OPIUM: { accent: '#ff0000', glow: 'rgba(255, 0, 0, 0.65)', bgGlow: 'rgba(255, 0, 0, 0.12)', borderGlow: 'rgba(255, 0, 0, 0.4)' },
-            PURPLE: { accent: '#a855f7', glow: 'rgba(168, 85, 247, 0.65)', bgGlow: 'rgba(168, 85, 247, 0.12)', borderGlow: 'rgba(168, 85, 247, 0.4)' },
-            GOLD: { accent: '#ffd700', glow: 'rgba(255, 215, 0, 0.65)', bgGlow: 'rgba(255, 215, 0, 0.12)', borderGlow: 'rgba(255, 215, 0, 0.4)' }
+            ICE: { accent: '#ffffff', glow: 'rgba(255, 255, 255, 0.65)', bgGlow: 'rgba(180, 220, 255, 0.12)', borderGlow: 'rgba(255, 255, 255, 0.4)' },
+            SLIME: { accent: '#39ff14', glow: 'rgba(57, 255, 20, 0.7)', bgGlow: 'rgba(0, 255, 50, 0.15)', borderGlow: 'rgba(57, 255, 20, 0.45)' },
+            OPIUM: { accent: '#ff0000', glow: 'rgba(255, 0, 0, 0.75)', bgGlow: 'rgba(255, 0, 0, 0.15)', borderGlow: 'rgba(255, 0, 0, 0.45)' },
+            PURPLE: { accent: '#a855f7', glow: 'rgba(168, 85, 247, 0.75)', bgGlow: 'rgba(168, 85, 247, 0.15)', borderGlow: 'rgba(168, 85, 247, 0.45)' },
+            GOLD: { accent: '#ffd700', glow: 'rgba(255, 215, 0, 0.75)', bgGlow: 'rgba(255, 215, 0, 0.15)', borderGlow: 'rgba(255, 215, 0, 0.45)' }
         };
 
         function setRadioTheme(mode) {
@@ -664,9 +541,7 @@
             document.documentElement.style.setProperty('--bg-glow', t.bgGlow);
             document.documentElement.style.setProperty('--border-glow', t.borderGlow);
 
-            document.querySelectorAll('.spray-tag').forEach(el => {
-                el.style.color = t.accent;
-            });
+            document.querySelectorAll('.spray-tag').forEach(el => { el.style.color = t.accent; });
 
             if (ringBarMeshes) {
                 const hexColor = parseInt(t.accent.replace('#', '0x'));
@@ -683,48 +558,26 @@
         let userHasClicked = false;
 
         const baseSongList = [
-            { id: '1IEg_3x35go', duration: 120, title: 'FRANCHISE' },
-            { id: 'qAlF70MdfwU', duration: 207, title: 'OUT WEST' }, 
-            { id: 'L_BpiSsIBFM', duration: 236, title: 'BROTHER STONE' }, 
-            { id: 'cTGQrA5HHIU', duration: 204, title: 'WITH THAT' }, 
-            { id: 'ftaXMKV3ffE', duration: 160, title: 'BACKR00MS' },
-            { id: 'LPTlvQ1Zet0', duration: 188, title: 'RIC FLAIR DRIP' },
-            { id: 'EfHNIPXTxy0', duration: 276, title: 'ZEZE' },
-            { id: 'yST9RwZNZDw', duration: 169, title: 'VURURUM KAFANDAN' },
-            { id: 'JrPBResAG2s', duration: 175, title: 'KÖPEKBALIKLARI BURDA' },
-            { id: '-q-XvhV7GFA', duration: 165, title: 'HARBİDEN ŞEKERMİŞ' },
-            { id: 'N4nfjhJN6SA', duration: 197, title: 'TAKE IT TO TRIAL' },
-            { id: 'kC2nGcgKeX0', duration: 167, title: 'GOSTOSO' },
-            { id: 'LcKC9YG-TQY', duration: 150, title: 'MOB GUYS' },
-            { id: '-yElvysKMCY', duration: 164, title: 'TRIMSKI' },
-            { id: 'pfjy7PhVtMo', duration: 135, title: 'POTATO LOADED' },
-            { id: 'bHDWrnlIqfQ', duration: 173, title: 'POPPIN/TALIBAN' },
-            { id: 'KPz33BLkvho', duration: 165, title: 'ESCAPE PLAN' },
-            { id: 'B9synWjqBn8', duration: 209, title: 'FE!N' },
-            { id: 'MKPEZlXY49Q', duration: 244, title: 'JENGA' },
-            { id: 'SpXw0qiy3Wo', duration: 314, title: 'X' },
-            { id: 'GErG9femMQk', duration: 174, title: 'WE PAID' },
-            { id: 'leJNDpm_G10', duration: 308, title: 'HOT' },
-            { id: 'PXxbEfhtDiM', duration: 169, title: 'DEAD FRESH' },
-            { id: '81LJJFASh-I', duration: 185, title: '24/7' },
-            { id: 'H6v_UYs01gA', duration: 167, title: 'PEMBE YALANLAR' },
-            { id: 'p6DHMNX-TO4', duration: 191, title: 'INSANË' },
-            { id: 'OBVx0Jmg88g', duration: 212, title: 'HBA' },
-            { id: 'qG6pQYhjOBw', duration: 186, title: 'ILMB' },
-            { id: 'vo98StHYs90', duration: 168, title: 'UR THE MOON' },
-            { id: '-nzUN-uHS2E', duration: 265, title: '1ST N 3RD' },
-            { id: 'ipOSrQNrp1U', duration: 247, title: 'RAN TO ATLANTA' },
-            { id: 'Ynlfvw2QgE4', duration: 135, title: 'İMDAT' },
-            { id: '0kbOaQOxiQU', duration: 242, title: 'THREE HEADED SNAKE' },
-            { id: 'ggzWJW38bfs', duration: 137, title: 'OG SPLIT' },
-            { id: 'nBj1d39KtcE', duration: 172, title: 'BLACK & CHINESE' },
-            { id: 'aWotrzyK5GA', duration: 157, title: 'OUT THE MUD' },
-            { id: '44G5iSzSNcE', duration: 190, title: 'BAYBAY' },
-            { id: 'pXHLhsS041E', duration: 142, title: 'JACK IN THE BOX' },
-            { id: 'FrIBZl8syac', duration: 206, title: 'KARAMBOL' },
-            { id: 'I0fgkcTbBoI', duration: 228, title: 'TYPE SHIT' }
-            
-            
+            { id: '1IEg_3x35go', duration: 120, title: 'Travis Scott - FRANCHISE' },
+            { id: 'qAlF70MdfwU', duration: 207, title: 'JACKBOYS - OUT WEST' }, 
+            { id: 'L_BpiSsIBFM', duration: 236, title: 'Don Toliver - BROTHER STONE' }, 
+            { id: 'cTGQrA5HHIU', duration: 204, title: 'Young Thug - WITH THAT' }, 
+            { id: 'ftaXMKV3ffE', duration: 160, title: 'Playboi Carti - BACKR00MS' },
+            { id: 'LPTlvQ1Zet0', duration: 188, title: 'Offset - RIC FLAIR DRIP' },
+            { id: 'EfHNIPXTxy0', duration: 276, title: 'Kodak Black - ZEZE' },
+            { id: 'yST9RwZNZDw', duration: 169, title: 'LVBEL C5 - VURURUM KAFANDAN' },
+            { id: 'JrPBResAG2s', duration: 175, title: 'Cakal - KÖPEKBALIKLARI BURDA' },
+            { id: '-q-XvhV7GFA', duration: 165, title: 'Batuflex - HARBİDEN ŞEKERMİŞ' },
+            { id: 'N4nfjhJN6SA', duration: 197, title: 'Young Thug - TAKE IT TO TRIAL' },
+            { id: 'kC2nGcgKeX0', duration: 167, title: 'Uzi - GOSTOSO' },
+            { id: 'B9synWjqBn8', duration: 209, title: 'Travis Scott - FE!N' },
+            { id: 'MKPEZlXY49Q', duration: 244, title: 'Ben Fero - JENGA' },
+            { id: 'SpXw0qiy3Wo', duration: 314, title: '21 Savage - X' },
+            { id: 'GErG9femMQk', duration: 174, title: 'Lil Baby - WE PAID' },
+            { id: 'leJNDpm_G10', duration: 308, title: 'Young Thug - HOT' },
+            { id: 'PXxbEfhtDiM', duration: 169, title: 'Destroy Lonely - DEAD FRESH' },
+            { id: 'OBVx0Jmg88g', duration: 212, title: 'Playboi Carti - HBA' },
+            { id: 'I0fgkcTbBoI', duration: 228, title: 'Future, Metro Boomin - TYPE SHIT' }
         ];
 
         const STREAM_START_TIME = 1700000000; 
@@ -757,10 +610,7 @@
             let accumulatedTime = 0;
             for (let i = 0; i < songList.length; i++) {
                 if (elapsedTime < accumulatedTime + songList[i].duration) {
-                    return {
-                        songIndex: i,
-                        seekTo: elapsedTime - accumulatedTime
-                    };
+                    return { songIndex: i, seekTo: elapsedTime - accumulatedTime };
                 }
                 accumulatedTime += songList[i].duration;
             }
@@ -804,9 +654,7 @@
                 events: {
                     'onReady': () => { 
                         isPlayerReady = true; 
-                        if (player && typeof player.playVideo === 'function') {
-                            player.playVideo();
-                        }
+                        if (player && typeof player.playVideo === 'function') player.playVideo();
                     },
                     'onStateChange': onPlayerStateChange
                 }
@@ -834,17 +682,12 @@
         }
 
         function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                actualPlayerStatePlaying = true;
-            } else {
-                actualPlayerStatePlaying = false;
-            }
+            actualPlayerStatePlaying = (event.data === YT.PlayerState.PLAYING);
             updateAudioVisualState();
         }
 
         function syncToLiveStream() {
             if (!isPlayerReady || !player || !userHasClicked) return;
-
             const state = getCurrentStreamState();
             const targetSong = songList[state.songIndex];
 
@@ -852,10 +695,7 @@
 
             if (currentLoadedVideoId !== targetSong.id) {
                 currentLoadedVideoId = targetSong.id;
-                player.loadVideoById({
-                    videoId: targetSong.id,
-                    startSeconds: Math.floor(state.seekTo)
-                });
+                player.loadVideoById({ videoId: targetSong.id, startSeconds: Math.floor(state.seekTo) });
                 player.playVideo();
                 return;
             }
@@ -863,8 +703,7 @@
             if (typeof player.getCurrentTime === 'function') {
                 const currentTime = player.getCurrentTime();
                 const timeDiff = Math.abs(currentTime - state.seekTo);
-                
-                if (timeDiff > 1.5) {
+                if (timeDiff > 1.8) {
                     player.seekTo(state.seekTo, true);
                     if (typeof player.getPlayerState === 'function' && player.getPlayerState() !== YT.PlayerState.PLAYING) {
                         player.playVideo();
@@ -879,8 +718,7 @@
             userHasClicked = true;
 
             const overlay = document.getElementById('start-overlay');
-            overlay.style.opacity = '0';
-            overlay.style.pointerEvents = 'none';
+            overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none';
             setTimeout(() => { overlay.style.display = 'none'; }, 300);
 
             const startPlaying = () => {
@@ -888,16 +726,12 @@
                 const targetSong = songList[state.songIndex];
 
                 updateTrackLabels(state.songIndex);
-
                 if (typeof player.unMute === 'function') player.unMute();
                 if (typeof player.setVolume === 'function') player.setVolume(Number(volumeRange.value));
 
                 if (currentLoadedVideoId !== targetSong.id) {
                     currentLoadedVideoId = targetSong.id;
-                    player.loadVideoById({
-                        videoId: targetSong.id,
-                        startSeconds: Math.floor(state.seekTo)
-                    });
+                    player.loadVideoById({ videoId: targetSong.id, startSeconds: Math.floor(state.seekTo) });
                 } else {
                     player.seekTo(state.seekTo, true);
                 }
@@ -936,20 +770,15 @@
 
         volumeRange.addEventListener('input', (e) => {
             const val = Number(e.target.value);
-            
             if (player && typeof player.setVolume === 'function') {
                 player.setVolume(val);
                 if (val === 0) {
-                    player.mute();
-                    muteBtn.innerText = '🔇';
-                    isMuted = true;
+                    player.mute(); muteBtn.innerText = '🔇'; isMuted = true;
                 } else {
                     if (isMuted || (typeof player.isMuted === 'function' && player.isMuted())) {
-                        player.unMute();
-                        isMuted = false;
+                        player.unMute(); isMuted = false;
                     }
-                    muteBtn.innerText = '🔊';
-                    lastVolume = val;
+                    muteBtn.innerText = '🔊'; lastVolume = val;
                 }
             }
             updateAudioVisualState();
@@ -958,33 +787,24 @@
         muteBtn.addEventListener('click', () => {
             if (!player) return;
             if (isMuted) {
-                player.unMute();
-                muteBtn.innerText = '🔊';
+                player.unMute(); muteBtn.innerText = '🔊';
                 let currentVol = Number(volumeRange.value);
-                if (currentVol === 0) {
-                    currentVol = lastVolume > 0 ? lastVolume : 100;
-                    volumeRange.value = currentVol;
-                }
+                if (currentVol === 0) { currentVol = lastVolume > 0 ? lastVolume : 100; volumeRange.value = currentVol; }
                 if (typeof player.setVolume === 'function') player.setVolume(currentVol);
                 isMuted = false;
             } else {
-                player.mute();
-                muteBtn.innerText = '🔇';
-                if (Number(volumeRange.value) > 0) {
-                    lastVolume = Number(volumeRange.value);
-                }
-                volumeRange.value = 0;
-                isMuted = true;
+                player.mute(); muteBtn.innerText = '🔇';
+                if (Number(volumeRange.value) > 0) lastVolume = Number(volumeRange.value);
+                volumeRange.value = 0; isMuted = true;
             }
             updateAudioVisualState();
         });
 
+        /* THREE.JS 3D SCENE & INTERACTIVE GLOBE */
         const globeContainer = document.getElementById('globe-3d-container');
-        
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
         
-        /* PC ve Mobil birebir aynı yüksek kaliteli performans standartı */
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
         globeContainer.appendChild(renderer.domElement);
@@ -995,17 +815,7 @@
             if (width === 0 || height === 0) return;
 
             camera.aspect = width / height;
-
-            if (window.innerWidth > 768) {
-                camera.position.z = 5.2;
-            } else if (window.innerHeight <= 650) {
-                camera.position.z = 5.8;
-            } else if (window.innerWidth <= 600) {
-                camera.position.z = 5.5;
-            } else {
-                camera.position.z = 5.0;
-            }
-
+            camera.position.z = window.innerWidth > 768 ? 5.2 : (window.innerHeight <= 650 ? 5.8 : 5.5);
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
         }
@@ -1014,25 +824,41 @@
         const earthTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
 
         const baseRadius = 1.35;
-        const segments = 64; 
-        const geometry = new THREE.SphereGeometry(baseRadius, segments, segments);
+        const geometry = new THREE.SphereGeometry(baseRadius, 64, 64);
         const material = new THREE.MeshStandardMaterial({
-            map: earthTexture,
-            roughness: 0.35,
-            metalness: 0.55
+            map: earthTexture, roughness: 0.35, metalness: 0.55
         });
         const globeMesh = new THREE.Mesh(geometry, material);
         scene.add(globeMesh);
 
+        /* Interactive Mouse Drag Rotation for Globe */
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        const logoTouchArea = document.getElementById('logo-touch-area');
+
+        logoTouchArea.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const deltaMove = { x: e.clientX - previousMousePosition.x, y: e.clientY - previousMousePosition.y };
+            globeMesh.rotation.y += deltaMove.x * 0.008;
+            globeMesh.rotation.x += deltaMove.y * 0.008;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('pointerup', () => { isDragging = false; });
+
         const ringBarsCount = 80; 
         const ringBarsGroup = new THREE.Group();
         const ringBarMeshes = [];
-
         const barHeight = 0.45;
+
         for (let i = 0; i < ringBarsCount; i++) {
             const barGeo = new THREE.BoxGeometry(0.035, barHeight, 0.035);
             barGeo.translate(0, barHeight / 2, 0); 
-            
             const barMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 });
             const bar = new THREE.Mesh(barGeo, barMat);
             
@@ -1054,43 +880,30 @@
         scene.add(dirLight);
 
         let ringMesh = null;
-
         function createOrbitRingText() {
             const canvas = document.createElement('canvas');
-            canvas.width = 1024;
-            canvas.height = 256;
+            canvas.width = 1024; canvas.height = 256;
             const ctx = canvas.getContext('2d');
-
-            ctx.fillStyle = 'transparent';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = 'transparent'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#ffffff';
 
             ctx.font = '900 70px "Montserrat", sans-serif';
             ctx.fillText("EA$Y FM", canvas.width / 2, 85);
-
             ctx.font = '800 28px "Space Grotesk", sans-serif';
-            ctx.fillText("7/24 YÜZDE YÜZ MÜZİK", canvas.width / 2, 165);
+            ctx.fillText("7/24 TRAP & OPIUM RADIO", canvas.width / 2, 165);
 
             const ringTex = new THREE.CanvasTexture(canvas);
-            ringTex.minFilter = THREE.LinearFilter;
-            ringTex.magFilter = THREE.LinearFilter;
+            ringTex.minFilter = THREE.LinearFilter; ringTex.magFilter = THREE.LinearFilter;
 
             const ringGeo = new THREE.CylinderGeometry(baseRadius + 0.3, baseRadius + 0.3, 0.65, 64, 1, true);
             const ringMat = new THREE.MeshBasicMaterial({
-                map: ringTex,
-                transparent: true,
-                side: THREE.DoubleSide,
-                depthWrite: false
+                map: ringTex, transparent: true, side: THREE.DoubleSide, depthWrite: false
             });
 
             ringMesh = new THREE.Mesh(ringGeo, ringMat);
             ringMesh.rotation.z = 0.08;
             scene.add(ringMesh);
         }
-
         document.fonts.ready.then(() => { createOrbitRingText(); });
 
         let bassAngle = 0;
@@ -1111,47 +924,43 @@
 
         function animateGlobe(currentTime) {
             requestAnimationFrame(animateGlobe);
-
             const deltaTime = (currentTime - lastTime) / 1000; 
             lastTime = currentTime;
-
             if (isNaN(deltaTime) || deltaTime > 0.1) return;
 
-            globeMesh.rotation.x = 0;
-            globeMesh.rotation.z = 0;
+            if (!isDragging) {
+                const globeSpeed = isPlayingState ? 0.6 : 0.15;
+                globeMesh.rotation.y += globeSpeed * deltaTime;
+            }
 
-            const globeSpeed = isPlayingState ? 0.6 : 0.15;
             const ringSpeed = isPlayingState ? 0.75 : 0.22;
-
-            globeMesh.rotation.y += globeSpeed * deltaTime;
             if (ringMesh) ringMesh.rotation.y -= ringSpeed * deltaTime;
             ringBarsGroup.rotation.z += (isPlayingState ? 0.4 : 0.05) * deltaTime;
 
             if (isPlayingState) {
-                bassAngle += 7.0 * deltaTime;
-                
+                bassAngle += 7.5 * deltaTime;
                 const bassPower = Math.pow(Math.sin(bassAngle), 5);
-                const bassScale = 1 + bassPower * 0.04; 
+                const bassScale = 1 + bassPower * 0.05; 
+                
                 globeMesh.scale.set(bassScale, bassScale, bassScale);
+                dirLight.intensity = 2.5 + bassPower * 3.5;
 
-                dirLight.intensity = 2.5 + bassPower * 3.0;
-
-                const glowScale = 1 + Math.sin(bassAngle) * 0.16;
+                const glowScale = 1 + Math.sin(bassAngle) * 0.18;
                 ambientGlowEl.style.transform = `translate(-50%, -50%) scale(${glowScale})`;
-                ambientGlowEl.style.opacity = (0.55 + bassPower * 0.4).toString();
+                ambientGlowEl.style.opacity = (0.6 + bassPower * 0.4).toString();
 
-                videoBoxEl.style.transform = `scale(${1 + bassPower * 0.012})`;
+                videoBoxEl.style.transform = `scale(${1 + bassPower * 0.015})`;
 
                 if (tag1El && tag2El) {
-                    tag1El.style.transform = `rotate(-25deg) scale(${1 + bassPower * 0.08})`;
-                    tag2El.style.transform = `rotate(15deg) scale(${1 + bassPower * 0.08})`;
-                    tag1El.style.opacity = (0.12 + bassPower * 0.2).toString();
-                    tag2El.style.opacity = (0.12 + bassPower * 0.2).toString();
+                    tag1El.style.transform = `rotate(-22deg) scale(${1 + bassPower * 0.1})`;
+                    tag2El.style.transform = `rotate(18deg) scale(${1 + bassPower * 0.1})`;
+                    tag1El.style.opacity = (0.15 + bassPower * 0.25).toString();
+                    tag2El.style.opacity = (0.15 + bassPower * 0.25).toString();
                 }
 
                 if (bgText1El && bgText2El) {
-                    bgText1El.style.transform = `rotate(-10deg) scale(${1 + bassPower * 0.03})`;
-                    bgText2El.style.transform = `rotate(8deg) scale(${1 + bassPower * 0.03})`;
+                    bgText1El.style.transform = `rotate(-12deg) scale(${1 + bassPower * 0.04})`;
+                    bgText2El.style.transform = `rotate(10deg) scale(${1 + bassPower * 0.04})`;
                 }
 
                 if (bassPower > 0.6) {
@@ -1166,15 +975,14 @@
                     volumeBoxEl.classList.remove('badge-bass-pulse');
                 }
 
-                /* Mobil ve PC'de Kesintisiz Glitch Tetikleyici */
                 if (bassPower > 0.65) {
-                    const shiftX = (Math.random() - 0.5) * 16;
-                    const shiftY = (Math.random() - 0.5) * 8;
-                    mainWrapper.style.setProperty('--glitch-x', shiftX);
-                    mainWrapper.style.setProperty('--glitch-y', shiftY);
+                    const shiftX = (Math.random() - 0.5) * 18;
+                    const shiftY = (Math.random() - 0.5) * 10;
+                    document.documentElement.style.setProperty('--glitch-x', shiftX);
+                    document.documentElement.style.setProperty('--glitch-y', shiftY);
                     mainWrapper.classList.add('wrapper-glitch');
 
-                    mobileGlitchEl.style.opacity = (0.2 + (bassPower - 0.65) * 1.5).toString();
+                    mobileGlitchEl.style.opacity = (0.25 + (bassPower - 0.65) * 1.6).toString();
                     mobileGlitchEl.style.background = Math.random() > 0.5 
                         ? 'linear-gradient(90deg, rgba(255,0,80,0.3) 0%, transparent 50%, rgba(0,255,255,0.3) 100%)' 
                         : 'linear-gradient(0deg, rgba(0,255,100,0.2) 0%, transparent 60%, rgba(255,0,0,0.3) 100%)';
@@ -1184,19 +992,18 @@
                 }
 
                 if (bassPower > 0.85) {
-                    lightningEl.style.opacity = (Math.random() > 0.35 ? (0.3 + (bassPower - 0.85) * 1.2) : 0).toString();
+                    lightningEl.style.opacity = (Math.random() > 0.3 ? (0.35 + (bassPower - 0.85) * 1.3) : 0).toString();
                 } else {
                     lightningEl.style.opacity = '0';
                 }
 
                 ringBarMeshes.forEach((bar, idx) => {
                     const rnd = Math.sin(bassAngle * 3 + idx) * 0.5 + 0.5;
-                    const scaleY = 0.25 + rnd * 1.1 * (bassPower + 0.2);
+                    const scaleY = 0.25 + rnd * 1.25 * (bassPower + 0.2);
                     
                     const currentRadius = (baseRadius * bassScale) + 0.01;
                     const angle = (idx / ringBarsCount) * Math.PI * 2;
                     bar.position.set(Math.cos(angle) * currentRadius, Math.sin(angle) * currentRadius, 0);
-
                     bar.scale.set(1, scaleY, 1);
                     bar.material.opacity = 0.6 + rnd * 0.4;
                 });
@@ -1216,24 +1023,21 @@
                 volumeBoxEl.classList.remove('badge-bass-pulse');
 
                 if (tag1El && tag2El) {
-                    tag1El.style.transform = `rotate(-25deg) scale(1)`;
-                    tag2El.style.transform = `rotate(15deg) scale(1)`;
-                    tag1El.style.opacity = '0.12';
-                    tag2El.style.opacity = '0.12';
+                    tag1El.style.transform = `rotate(-22deg) scale(1)`;
+                    tag2El.style.transform = `rotate(18deg) scale(1)`;
+                    tag1El.style.opacity = '0.15'; tag2El.style.opacity = '0.15';
                 }
 
                 if (bgText1El && bgText2El) {
-                    bgText1El.style.transform = `rotate(-10deg) scale(1)`;
-                    bgText2El.style.transform = `rotate(8deg) scale(1)`;
+                    bgText1El.style.transform = `rotate(-12deg) scale(1)`;
+                    bgText2El.style.transform = `rotate(10deg) scale(1)`;
                 }
 
                 ringBarMeshes.forEach((bar, idx) => {
                     const currentRadius = baseRadius + 0.01;
                     const angle = (idx / ringBarsCount) * Math.PI * 2;
                     bar.position.set(Math.cos(angle) * currentRadius, Math.sin(angle) * currentRadius, 0);
-
-                    bar.scale.set(1, 0.25, 1);
-                    bar.material.opacity = 0.35;
+                    bar.scale.set(1, 0.25, 1); bar.material.opacity = 0.35;
                 });
             }
 
@@ -1243,6 +1047,7 @@
         resizeThreeJS();
         requestAnimationFrame(animateGlobe);
 
+        /* CYBER DUST PARTICLES */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
@@ -1260,17 +1065,17 @@
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.5 + 0.8;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.size = Math.random() * 2.8 + 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.9;
+                this.speedY = (Math.random() - 0.5) * 0.9;
                 this.opacity = Math.random() * 0.6 + 0.2;
                 this.pulseSpeed = Math.random() * 0.05 + 0.02;
             }
             update() {
-                const speedMult = isPlayingState ? 2.2 : 1.0;
+                const speedMult = isPlayingState ? 2.5 : 1.0;
                 this.x += this.speedX * speedMult;
                 this.y += this.speedY * speedMult;
-                this.opacity += Math.sin(Date.now() * this.pulseSpeed) * 0.025;
+                this.opacity += Math.sin(Date.now() * this.pulseSpeed) * 0.03;
                 if (this.opacity < 0.1) this.opacity = 0.1;
                 if (this.opacity > 0.85) this.opacity = 0.85;
                 if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
@@ -1285,8 +1090,7 @@
             }
         }
 
-        const particleCount = 65; 
-        for (let i = 0; i < particleCount; i++) particlesArray.push(new CyberParticle());
+        for (let i = 0; i < 70; i++) particlesArray.push(new CyberParticle());
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1295,6 +1099,7 @@
         }
         animateParticles();
 
+        /* FIREBASE LIVE LISTENERS */
         const firebaseConfig = {
             apiKey: "AIzaSyBaTlb6V6e4FMLTYNXAPBgdzsgiclL8Qw8",
             authDomain: "easyfm-37b9e.firebaseapp.com",
