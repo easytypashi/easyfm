@@ -346,6 +346,10 @@
             pointer-events: auto;
         }
 
+        .volume-control-box.disabled {
+            pointer-events: none;
+        }
+
         .badge-bass-pulse {
             transform: scale(1.04);
             border-color: var(--accent-color) !important;
@@ -608,9 +612,9 @@
                 <div class="theme-btn theme-purple" onclick="setRadioTheme('PURPLE')" title="LEAN Purple"></div>
                 <div class="theme-btn theme-gold" onclick="setRadioTheme('GOLD')" title="CHAMPAGNE Gold"></div>
             </div>
-            <div class="volume-control-box" id="volume-box">
-                <button class="volume-btn" id="mute-btn">🔊</button>
-                <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="100">
+            <div class="volume-control-box disabled" id="volume-box">
+                <button class="volume-btn" id="mute-btn" disabled>🔊</button>
+                <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="100" disabled>
             </div>
         </div>
 
@@ -723,8 +727,6 @@
             { id: 'pXHLhsS041E', duration: 142, title: 'JACK IN THE BOX' },
             { id: 'FrIBZl8syac', duration: 206, title: 'KARAMBOL' },
             { id: 'I0fgkcTbBoI', duration: 228, title: 'TYPE SHIT' }
-            
-            
         ];
 
         const STREAM_START_TIME = 1700000000; 
@@ -877,6 +879,12 @@
             if (e && e.cancelable) e.preventDefault();
             if (userHasClicked) return;
             userHasClicked = true;
+
+            // Ses kontrollerinin kilitlerini aç
+            const volumeBox = document.getElementById('volume-box');
+            volumeBox.classList.remove('disabled');
+            document.getElementById('mute-btn').removeAttribute('disabled');
+            document.getElementById('volume-range').removeAttribute('disabled');
 
             const overlay = document.getElementById('start-overlay');
             overlay.style.opacity = '0';
